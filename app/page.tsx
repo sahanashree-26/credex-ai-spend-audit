@@ -20,19 +20,28 @@ export default function Home() {
   const [monthlySpend, setMonthlySpend] = useState("");
   const [teamSize, setTeamSize] = useState("");
 
+  const [loading, setLoading] = useState(false);
   const [auditResult, setAuditResult] =
     useState<AuditResult | null>(null);
 
-  const handleGenerateAudit = () => {
-    const result = generateAudit(
-      selectedTool,
-      Number(monthlySpend),
-      Number(teamSize)
-    );
+  const handleGenerateAudit = async () => {
 
-    setAuditResult(result);
-  };
+  setLoading(true);
 
+  await new Promise((resolve) =>
+    setTimeout(resolve, 2500)
+  );
+
+  const result = generateAudit(
+    selectedTool,
+    Number(monthlySpend),
+    Number(teamSize)
+  );
+
+  setAuditResult(result);
+
+  setLoading(false);
+};
   return (
     <main className="min-h-screen bg-black text-white overflow-hidden relative">
 
@@ -182,11 +191,14 @@ export default function Home() {
 
           {/* BUTTON */}
           <button
-            onClick={handleGenerateAudit}
-            className="w-full bg-white text-black py-4 rounded-xl font-semibold hover:bg-zinc-200 transition"
-          >
-            Generate Audit
-          </button>
+  onClick={handleGenerateAudit}
+  disabled={loading}
+  className="w-full bg-gradient-to-r from-cyan-400 to-purple-500 text-black py-4 rounded-xl font-semibold hover:opacity-90 transition disabled:opacity-50"
+>
+  {loading
+    ? "AI Analyzing Spend Data..."
+    : "Generate Audit"}
+</button>
 
           {/* RESULT */}
           {auditResult && (
