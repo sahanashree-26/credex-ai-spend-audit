@@ -1,3 +1,4 @@
+import AIInsight from "./AIInsight";
 import AuditScore from "./AuditScore";
 
 interface AuditResultCardProps {
@@ -5,6 +6,7 @@ interface AuditResultCardProps {
   savings: number;
   yearlySavings: number;
   reason: string;
+  teamSize: number;
 }
 
 export default function AuditResultCard(
@@ -74,6 +76,11 @@ export default function AuditResultCard(
       </div>
 
       <AuditScore score={score} />
+      <AIInsight
+        tool={props.recommendation}
+        savings={props.savings}
+        teamSize={props.teamSize}
+      />
 
       <div className="bg-black/30 border border-zinc-800 rounded-2xl p-6">
 

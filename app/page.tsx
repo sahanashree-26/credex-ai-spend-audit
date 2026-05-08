@@ -20,9 +20,9 @@ export default function Home() {
   const [monthlySpend, setMonthlySpend] = useState("");
   const [teamSize, setTeamSize] = useState("");
 
-  const [loading, setLoading] = useState(false);
   const [auditResult, setAuditResult] =
     useState<AuditResult | null>(null);
+    const [loading, setLoading] = useState(false);
 
   const handleGenerateAudit = async () => {
 
@@ -207,6 +207,7 @@ export default function Home() {
               savings={auditResult.savings}
               yearlySavings={auditResult.yearlySavings}
               reason={auditResult.reason}
+              teamSize={Number(teamSize)}
             />
           )}
 
