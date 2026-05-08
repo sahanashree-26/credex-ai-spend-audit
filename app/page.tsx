@@ -1,4 +1,5 @@
 "use client";
+import BackgroundGlow from "@/components/BackgroundGlow";
 
 import { useState } from "react";
 import { Brain, DollarSign, Zap } from "lucide-react";
@@ -33,7 +34,9 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-black text-white">
+    <main className="min-h-screen bg-black text-white overflow-hidden relative">
+
+     <BackgroundGlow />
 
       {/* HERO SECTION */}
       <section className="max-w-6xl mx-auto px-6 py-20 text-center">
