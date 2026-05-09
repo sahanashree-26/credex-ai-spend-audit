@@ -1,80 +1,51 @@
-export type AuditResult = {
+export interface AuditResult {
   recommendation: string;
   savings: number;
   yearlySavings: number;
   reason: string;
-};
+}
 
 export function generateAudit(
   tool: string,
-  spend: number,
+  monthlySpend: number,
   teamSize: number
 ): AuditResult {
-  if (tool === "ChatGPT") {
-    if (teamSize <= 2 && spend > 50) {
-      return {
-        recommendation: "Switch to ChatGPT Plus",
-        savings: 20,
-        yearlySavings: 240,
-        reason:
-          "Small teams usually don't need expensive enterprise plans.",
-      };
-    }
 
-    return {
-      recommendation: "Current plan is optimized",
-      savings: 0,
-      yearlySavings: 0,
-      reason:
-        "Your current ChatGPT spending looks reasonable.",
-    };
+  let savings = 0;
+
+  if (monthlySpend > 1000) {
+    savings = Math.floor(monthlySpend * 0.35);
+  } else if (monthlySpend > 500) {
+    savings = Math.floor(monthlySpend * 0.2);
+  } else if (monthlySpend > 200) {
+    savings = Math.floor(monthlySpend * 0.12);
+  } else {
+    savings = Math.floor(monthlySpend * 0.05);
   }
 
-  if (tool === "Claude") {
-    if (spend > 200) {
-      return {
-        recommendation: "Move to Claude Team Plan",
-        savings: 60,
-        yearlySavings: 720,
-        reason:
-          "Claude Team provides better collaboration pricing.",
-      };
-    }
+  const yearlySavings = savings * 12;
 
-    return {
-      recommendation: "Current Claude usage is fine",
-      savings: 0,
-      yearlySavings: 0,
-      reason:
-        "No major optimization opportunities detected.",
-    };
+  let recommendation = "";
+
+  if (teamSize <= 3) {
+    recommendation =
+      "Switch to flexible AI creator plans";
+  } else if (teamSize <= 10) {
+    recommendation =
+      "Optimize unused premium AI seats";
+  } else {
+    recommendation =
+      "Move toward centralized enterprise AI management";
   }
 
-  if (tool === "Cursor") {
-    if (teamSize < 5 && spend > 100) {
-      return {
-        recommendation: "Downgrade to Cursor Pro",
-        savings: 40,
-        yearlySavings: 480,
-        reason:
-          "Smaller teams can reduce costs using Pro plans.",
-      };
-    }
-
-    return {
-      recommendation: "Cursor plan looks efficient",
-      savings: 0,
-      yearlySavings: 0,
-      reason:
-        "Your current Cursor setup is cost effective.",
-    };
-  }
+  const reason = `
+Your ${tool} usage pattern suggests there may be underutilized subscriptions, overlapping AI tools, or unnecessary premium seats across your team workflows.
+`;
 
   return {
-    recommendation: "No audit available",
-    savings: 0,
-    yearlySavings: 0,
-    reason:
-      "We could not analyze this AI tool yet.",
+    recommendation,
+    savings,
+    yearlySavings,
+    reason,
   };
 }
