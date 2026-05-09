@@ -1,3 +1,4 @@
+import AIConfidenceRing from "./AIConfidenceRing";
 import AIInsight from "./AIInsight";
 import AuditScore from "./AuditScore";
 
@@ -15,10 +16,10 @@ export default function AuditResultCard(
 
   const score =
     props.savings > 50
-      ? 45
+      ? 85
       : props.savings > 0
-      ? 72
-      : 90;
+      ? 70
+      : 95;
 
   return (
     <div className="mt-10 bg-gradient-to-br from-zinc-900 to-zinc-950 border border-zinc-800 rounded-3xl p-8">
@@ -92,6 +93,7 @@ export default function AuditResultCard(
 
       {/* SCORE */}
       <AuditScore score={score} />
+      <AIConfidenceRing score={score} />
 
       {/* AI INSIGHT */}
       <AIInsight
