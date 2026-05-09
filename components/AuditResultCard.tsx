@@ -2,6 +2,7 @@ import AuditScore from "./AuditScore";
 import AIInsight from "./AIInsight";
 import AIConfidenceRing from "./AIConfidenceRing";
 import DownloadReportButton from "./DownloadReportButton";
+import CountUp from "react-countup";
 
 interface AuditResultCardProps {
   recommendation: string;
@@ -50,7 +51,11 @@ export default function AuditResultCard(
           </p>
 
           <h3 className="text-5xl font-bold text-green-400 relative z-10">
-            ${props.savings}
+            $
+            <CountUp
+             end={props.savings}
+             duration={2}
+            />
           </h3>
 
           <div className="mt-4 inline-flex items-center gap-2 bg-green-500/10 text-green-300 px-3 py-1 rounded-full text-sm relative z-10">
@@ -68,7 +73,11 @@ export default function AuditResultCard(
           </p>
 
           <h3 className="text-5xl font-bold text-cyan-400 relative z-10">
-            ${props.yearlySavings}
+            $
+            <CountUp
+             end={props.yearlySavings}
+             duration={2.5}
+            />
           </h3>
 
           <div className="mt-4 inline-flex items-center gap-2 bg-cyan-500/10 text-cyan-300 px-3 py-1 rounded-full text-sm relative z-10">
