@@ -1,6 +1,7 @@
-import AIConfidenceRing from "./AIConfidenceRing";
-import AIInsight from "./AIInsight";
 import AuditScore from "./AuditScore";
+import AIInsight from "./AIInsight";
+import AIConfidenceRing from "./AIConfidenceRing";
+import DownloadReportButton from "./DownloadReportButton";
 
 interface AuditResultCardProps {
   recommendation: string;
@@ -93,6 +94,8 @@ export default function AuditResultCard(
 
       {/* SCORE */}
       <AuditScore score={score} />
+
+      {/* AI CONFIDENCE RING */}
       <AIConfidenceRing score={score} />
 
       {/* AI INSIGHT */}
@@ -114,6 +117,14 @@ export default function AuditResultCard(
         </p>
 
       </div>
+
+      {/* DOWNLOAD REPORT BUTTON */}
+      <DownloadReportButton
+        recommendation={props.recommendation}
+        savings={props.savings}
+        yearlySavings={props.yearlySavings}
+        reason={props.reason}
+      />
 
     </div>
   );
